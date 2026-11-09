@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Operação Luna</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <header id="topbar">
+    <span id="hud-mission">OPERAÇÃO LUNA</span>
+    <span id="hud-points">PTS: 0</span>
+    <button id="btn-mute" aria-label="Som">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/>
+        <g id="mute-waves" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M16 9a4 4 0 0 1 0 6"/>
+          <path d="M19 6a8 8 0 0 1 0 12"/>
+        </g>
+        <line id="mute-slash" x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <main id="stage">
+
+    <!-- INÍCIO -->
+    <section class="screen active" id="screen-start">
+      <div class="panel center">
+        <h1 id="title">OPERAÇÃO LUNA</h1>
+        <p class="sub">Terminal seguro. Aguardando a agente...</p>
+        <div class="bar"><div id="load-fill"></div></div>
+        <p id="load-text">Carregando arquivos... 0%</p>
+        <button id="btn-start" class="btn big" disabled>[ INICIAR ]</button>
+      </div>
+    </section>
+
+    <!-- DIÁLOGO (usado em todas as falas) -->
+    <section class="screen" id="screen-dialog">
+      <div class="panel dialog-wrap">
+        <div class="speaker">
+          <div class="avatar-frame"><img id="dlg-avatar" alt=""></div>
+          <div id="dlg-name" class="speaker-name"></div>
+        </div>
+        <div class="dialog-box"><p id="dlg-text"></p></div>
+      </div>
+      <div id="dlg-options" class="options hidden"></div>
+      <button id="btn-next" class="btn big">[ AVANÇAR ]</button>
+    </section>
+
+    <!-- M2: QUIZ -->
+    <section class="screen" id="screen-m2">
+      <div class="hud-row"><span id="m2-count">PERGUNTA 1/10</span><span id="m2-score">0 PTS</span></div>
+      <div class="timer"><div id="m2-timer-fill"></div></div>
+      <div class="era-tag" id="m2-era"></div>
+      <div class="q-image"><img id="m2-img" alt=""></div>
+      <p id="m2-question" class="question"></p>
+      <div id="m2-options" class="grid2"></div>
+      <div class="feedback hidden" id="m2-feedback">
+        <img class="fb-avatar" id="m2-fb-avatar" alt="">
+        <div class="fb-body"><b id="m2-fb-name"></b><p id="m2-fb-text"></p></div>
+      </div>
+      <button id="m2-next" class="btn big hidden">[ PRÓXIMA ]</button>
+    </section>
+
+    <!-- M3: SETLIST -->
+    <section class="screen" id="screen-m3">
+      <div class="hud-row"><span id="m3-block">BLOCO 1/5</span><span id="m3-camarim">CAMARIM: 2</span></div>
+      <div class="meter">
+        <label>STAMINA</label>
+        <div class="bar"><div id="m3-stamina-fill"></div></div>
+        <span id="m3-stamina-val">100%</span>
+      </div>
+      <div class="meter">
+        <label>PÚBLICO</label>
+        <div class="bar"><div id="m3-crowd-fill"></div></div>
+        <span id="m3-crowd-val">50%</span>
+      </div>
+      <div class="timer"><div id="m3-timer-fill"></div></div>
+      <p id="m3-narration" class="narration"></p>
+      <div id="m3-options" class="grid2"></div>
+      <div class="feedback hidden" id="m3-feedback">
+        <img class="fb-avatar" id="m3-fb-avatar" alt="">
+        <div class="fb-body"><b id="m3-fb-name"></b><p id="m3-fb-text"></p></div>
+      </div>
+      <button id="m3-next" class="btn big hidden">[ PRÓXIMO BLOCO ]</button>
+    </section>
+
+    <!-- M4: MEMÓRIA -->
+    <section class="screen" id="screen-m4">
+      <div class="hud-row"><span id="m4-pairs">PARES: 0/14</span><span id="m4-time">120s</span></div>
+      <div class="timer"><div id="m4-timer-fill"></div></div>
+      <div id="m4-grid" class="memory-grid"></div>
+      <div class="feedback hidden" id="m4-feedback">
+        <img class="fb-avatar" id="m4-fb-avatar" alt="">
+        <div class="fb-body"><b id="m4-fb-name"></b><p id="m4-fb-text"></p></div>
+      </div>
+    </section>
+
+    <!-- M5: TERMO HACKER -->
+    <section class="screen" id="screen-m5">
+      <div class="hud-row"><span id="m5-layer">CAMADA 1/2</span><span id="m5-tries">TENTATIVA 1/6</span></div>
+      <div id="m5-grid" class="termo-grid"></div>
+      <p id="m5-msg" class="msg"></p>
+      <div id="m5-keyboard" class="keyboard"></div>
+      <button id="m5-next" class="btn big hidden">[ AVANÇAR ]</button>
+    </section>
+
+    <!-- M6: DESARME -->
+    <section class="screen" id="screen-m6">
+      <div class="hud-row"><span id="m6-server">SERVIDOR 1/3</span><span id="m6-lives">VIDAS: 2</span></div>
+      <div id="m6-clues" class="clues"></div>
+      <p id="m6-order" class="msg"></p>
+      <div id="m6-rack" class="rack"><div id="m6-wires" class="wires"></div></div>
+      <div class="feedback hidden" id="m6-feedback">
+        <img class="fb-avatar" id="m6-fb-avatar" alt="">
+        <div class="fb-body"><b id="m6-fb-name"></b><p id="m6-fb-text"></p></div>
+      </div>
+      <button id="m6-next" class="btn big hidden">[ AVANÇAR ]</button>
+    </section>
+
+    <!-- M7: RESTAURAÇÃO -->
+    <section class="screen" id="screen-m7">
+      <div id="m7-board" class="board"></div>
+      <div id="m7-restore" class="restore hidden">
+        <div class="bar"><div id="m7-fill"></div></div>
+        <p id="m7-pct">0%</p>
+        <p id="m7-log" class="msg"></p>
+      </div>
+      <div id="m7-letter" class="letter hidden"><p id="m7-letter-text"></p></div>
+      <button id="m7-next" class="btn big hidden">[ AVANÇAR ]</button>
+    </section>
+
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
